@@ -807,6 +807,7 @@ function insertScrappingServerInformation(){
 				}
 			}	
 			catch(Exception e){
+
 				e.printStackTrace();
 			}
 %>
