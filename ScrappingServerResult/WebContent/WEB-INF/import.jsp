@@ -807,7 +807,7 @@ function insertScrappingServerInformation(){
 				}
 			}	
 			catch(Exception e){
-
+				response.sendRedirect("/ScrappingServerResult/error");
 				e.printStackTrace();
 			}
 %>

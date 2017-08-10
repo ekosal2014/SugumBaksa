@@ -44,6 +44,14 @@ public class ScrappingResultController {
 		return "import";
 	}
 	/***************************************************
+	 * View Page import Data Information From Excel into View
+	 * @return
+	 */
+	@RequestMapping(value ="/error", method = RequestMethod.GET)
+	public String errortPage(){
+		return "error";
+	}
+	/***************************************************
 	 * View Page Export Data Information From View into Excel
 	 * @return
 	 */
