@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.java.scrapserver.result.mapper.ScrappingServerMapper">
+	<resultMap type="com.java.scrapserver.result.model.SugumBaksa" id="SugumBaksa">
+		<id property="id"                  column="id"/>
+		<result property="dateReport"      column="date_report"/>
+		<result property="accInCnt"        column="acct_in_cnt"/>
+		<result property="accOutCnt"       column="acct_out_cnt"/>
+		<result property="cardApprcnt"     column="card_appr_cnt"/>
+		<result property="cartBillCnt"     column="card_bill_cnt"/>
+		<result property="cardLimitCnt"    column="card_limit_cnt"/>
+		<result property="saleHstReceCnt"  column="sale_hst_rece_cnt"/>
+		<result property="saleHstPurcCnt"  column="sale_hst_purc_cnt"/>
+		<result property="saleHstApprCnt"  column="sale_hst_appr_cnt"/>
+		<result property="searchGuhunA"    column="search_gubun_a"/>
+		<result property="searchGuhunB"    column="search_gubun_b"/>
+		<result property="searchGuhunC"    column="search_gubun_c"/>
+		<result property="searchGuhunD"    column="search_gubun_d"/>
+		<result property="cashRcpPurcCnt"  column="cash_rcp_purc_cnt"/>
+		<result property="cashRcpSaleCnt"  column="cash_rcp_sales_cnt"/>
+		<result property="psnCardApprCnt"  column="psn_card_appr_cnt"/>
+		<result property="psnCardBillCnt"  column="psn_card_bill_cnt"/>
+		<result property="psnCardLimitCnt" column="	psn_card_limit_cnt"/>
+		<result property="psnCardPaymentDateCnt" column="psn_card_payment_date_cnt"/>
+		<result property="psnCardListCnt"  column="psn_card_list_cnt"/>
+		<result property="ttBankCnt"       column="tt_bank_cnt"/>
+		<result property="ttCardCnt"       column="tt_card_cnt"/>
+		<result property="ttCardSaleCnt"   column="tt_cardsales_cnt"/>
+		<result property="ttEtaxCnt"       column="tt_etax_cnt"/>
+		<result property="ttCashCnt"       column="tt_cash_cnt"/>
+		<result property="ttPsnCardCnt"    column="tt_psn_card_cnt"/>
+		<result property="sts"             column="sts"/>
+	</resultMap>
+	<insert id="insertScrapingServerInformation" parameterType="SugumBaksa" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO report_morning
+		(
+			 date_report
+			,acct_in_cnt
+			,acct_out_cnt
+			,card_appr_cnt
+			,card_bill_cnt
+			,card_limit_cnt
+			,sale_hst_rece_cnt
+			,sale_hst_purc_cnt
+			,sale_hst_appr_cnt
+			,search_gubun_a
+			,search_gubun_b
+			,search_gubun_c
+			,search_gubun_d
+			,cash_rcp_purc_cnt
+			,cash_rcp_sales_cnt
+			,psn_card_appr_cnt
+			,psn_card_bill_cnt
+			,psn_card_limit_cnt
+			,psn_card_payment_date_cnt
+			,psn_card_list_cnt
+			,tt_bank_cnt
+			,tt_card_cnt
+			,tt_cardsales_cnt
+			,tt_etax_cnt
+			,tt_cash_cnt
+			,tt_psn_card_cnt
+			,sts
+			
+		)
+		VALUES(
+			 #{dateReport}
+			,#{accInCnt}
+			,#{accOutCnt}
+			,#{cardApprcnt}
+			,#{cartBillCnt}
+			,#{cardLimitCnt}
+			,#{saleHstReceCnt}
+			,#{saleHstPurcCnt}
+			,#{saleHstApprCnt}
+			,#{searchGuhunA}
+			,#{searchGuhunB}
+			,#{searchGuhunC}
+			,#{searchGuhunD}
+			,#{cashRcpPurcCnt}
+			,#{cashRcpSaleCnt}
+			,#{psnCardApprCnt}
+			,#{psnCardBillCnt}
+			,#{psnCardLimitCnt}
+			,#{psnCardPaymentDateCnt}
+			,#{psnCardListCnt}
+			,#{ttBankCnt}
+			,#{ttCardCnt}
+			,#{ttCardSaleCnt}
+			,#{ttEtaxCnt}
+			,#{ttCashCnt}
+			,#{ttPsnCardCnt}
+			,#{sts}
+			
+		)
+	</insert>
+	<insert id="insertScrapingServerInformations" parameterType="java.util.List" useGeneratedKeys="true">
+		INSERT INTO report_morning
+		(
+			 id
+			,date_report
+			,acct_in_cnt
+			,acct_out_cnt
+			,card_appr_cnt
+			,card_bill_cnt
+			,card_limit_cnt
+			,sale_hst_rece_cnt
+			,sale_hst_purc_cnt
+			,sale_hst_appr_cnt
+			,search_gubun_a
+			,search_gubun_b
+			,search_gubun_c
+			,search_gubun_d
+			,cash_rcp_purc_cnt
+			,cash_rcp_sales_cnt
+			,psn_card_appr_cnt
+			,psn_card_bill_cnt
+			,psn_card_limit_cnt
+			,psn_card_payment_date_cnt
+			,psn_card_list_cnt
+			,tt_bank_cnt
+			,tt_card_cnt
+			,tt_cardsales_cnt
+			,tt_etax_cnt
+			,tt_cash_cnt
+			,tt_psn_card_cnt
+			,sts
+			
+		)
+		VALUES
+		<foreach collection="list" item="item" open="(" separator="),(" close=")">		
+			 #{item.id}
+			,#{item.dateReport}
+			,#{item.accInCnt}
+			,#{item.accOutCnt}
+			,#{item.cardApprcnt}
+			,#{item.cartBillCnt}
+			,#{item.cardLimitCnt}
+			,#{item.saleHstReceCnt}
+			,#{item.saleHstPurcCnt}
+			,#{item.saleHstApprCnt}
+			,#{item.searchGuhunA}
+			,#{item.searchGuhunB}
+			,#{item.searchGuhunC}
+			,#{item.searchGuhunD}
+			,#{item.cashRcpPurcCnt}
+			,#{item.cashRcpSaleCnt}
+			,#{item.psnCardApprCnt}
+			,#{item.psnCardBillCnt}
+			,#{item.psnCardLimitCnt}
+			,#{item.psnCardPaymentDateCnt}
+			,#{item.psnCardListCnt}
+			,#{item.ttBankCnt}
+			,#{item.ttCardCnt}
+			,#{item.ttCardSaleCnt}
+			,#{item.ttEtaxCnt}
+			,#{item.ttCashCnt}
+			,#{item.ttPsnCardCnt}
+			,#{item.sts}			
+		
+		</foreach>
+		
+	</insert>
+	<select id="selectScrappingInformation" resultMap="SugumBaksa" parameterType="String">
+		SELECT * FROM report_morning
+		WHERE 1=1
+		<if test="date != null">
+			AND date_report = #{date}
+		</if>
+	</select>
+	<select id="checkDuplatedKey" resultType="int" parameterType="String">
+		SELECT COUNT(*) AS count FROM report_morning
+		WHERE 1=1
+		<if test="date != null">
+			AND date_report = #{date}
+		</if>
+	</select>
+</mapper>
