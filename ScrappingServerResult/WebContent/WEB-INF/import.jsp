@@ -161,7 +161,7 @@ function insertScrappingServerInformation(){
 
 <div>
 	<form action="${pageContext.request.contextPath }/listDataOnView" method="post" enctype="multipart/form-data">
-		<input type="file" name="file" onchange="this.form.submit();">		
+		<input type="file" name="file" onchange="this.form.submit();" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" >		
 	</form>
 	<button onclick="insertScrappingServerInformation();">Import</button>
 </div>
