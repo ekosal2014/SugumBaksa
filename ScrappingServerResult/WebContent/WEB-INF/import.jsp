@@ -40,6 +40,9 @@ function openCity(evt, cityName) {
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
 }
+function exportExcel(){
+	window.location.href = "${pageContext.request.contextPath }/exportExcel";
+}
 function insertScrappingServerInformation(){
 	var info = [{
 			  "id"            :1
@@ -164,6 +167,7 @@ function insertScrappingServerInformation(){
 		<input type="file" name="file" onchange="this.form.submit();" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" >		
 	</form>
 	<button onclick="insertScrappingServerInformation();">Import</button>
+	<button onclick="exportExcel();">Export Simple Excel</button>
 </div>
 
 

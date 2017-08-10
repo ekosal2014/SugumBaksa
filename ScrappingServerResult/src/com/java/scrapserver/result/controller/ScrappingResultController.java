@@ -2,11 +2,17 @@ package com.java.scrapserver.result.controller;
 
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +32,15 @@ import com.java.scrapserver.result.service.ScrappingServerSerice;
 public class ScrappingResultController {
 
 	final static Logger log = Logger.getLogger(ScrappingResultController.class);
+	/**
+     * Size of a byte buffer to read/write file
+     */
+    private static final int BUFFER_SIZE = 4096;
+             
+    /**
+     * Path of the file to be downloaded, relative to application's directory
+     */
+	private String filePath = "/static/files/스크래핑결과.xlsx";
 	
 	@Autowired
 	private ScrappingServerSerice scrappingServerSerice;
@@ -104,5 +119,55 @@ public class ScrappingResultController {
 	public @ResponseBody List<SugumBaksa> selectScrapingInformation(@RequestParam("date") String date){
 		System.out.println("Data Result ============== " + date);
 		return scrappingServerSerice.selectScrappingInformation(date);
+	}
+	/***********************************************
+	 * Export Simple Excel
+	 * Return List Information
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
+	public void exportSimpleExcel(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		// get absolute path of the application
+		
+        ServletContext context = request.getServletContext();
+        String appPath = context.getRealPath("");
+        System.out.println("appPath = " + appPath);
+ 
+        // construct the complete absolute path of the file
+        String fullPath = appPath + filePath;      
+        File downloadFile = new File(fullPath);
+        FileInputStream inputStream = new FileInputStream(downloadFile);
+         
+        // get MIME type of the file
+        String mimeType = context.getMimeType(fullPath);
+        if (mimeType == null) {
+            // set to binary type if MIME mapping not found
+            mimeType = "application/ms-excel; charset=UTF-8";
+        }
+        System.out.println("MIME type: " + mimeType);
+ 
+        // set content attributes for the response
+        response.setContentType(mimeType);
+        response.setContentLength((int) downloadFile.length());
+ 
+        // set headers for the response
+        response.setCharacterEncoding("UTF-8");
+        String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"",URLEncoder.encode(downloadFile.getName(), "UTF-8"));
+        response.setHeader(headerKey, headerValue);
+ 
+        // get output stream of the response
+        OutputStream outStream = response.getOutputStream();
+ 
+        byte[] buffer = new byte[BUFFER_SIZE];
+        int bytesRead = -1;
+ 
+        // write bytes read from the input stream into the output stream
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outStream.write(buffer, 0, bytesRead);
+        }
+ 
+        inputStream.close();
+        outStream.close();
 	}
 }
